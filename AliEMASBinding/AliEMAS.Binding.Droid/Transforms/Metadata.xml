@@ -1,0 +1,15 @@
+﻿<metadata>
+  <!--
+  This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
+  
+  This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
+  -->
+  <remove-node path="/api/package[@name='anetwork.channel.aidl.adapter']/class[@name='ConnectionDelegate']"/>
+  <remove-node path="/api/package[@name='com.alibaba.sdk.android.push.common.global']/class[@name='AccsErrorCodeEnum']/field[@name='REG_SUCCESS']"/>
+  <remove-node path="/api/package[@name='org.android.spdy']/class[@name='SpdyByteArray']"/>
+  <remove-node path="/api/package[@name='com.alibaba.sdk.android.push.common.util.sendrequest']/class[@name='SendRequestTask']"/>
+  <remove-node path="/api/package[@name='com.alibaba.sdk.android.push.securitybox.alipush']/class[@name='AliPushSecurityBoxServiceFactoryProvider']"/>
+
+  <attr path="/api/package[@name='com.alibaba.sdk.android.push']/class[@name='MessageReceiver']/method[@name='onHandleCall' and count(parameter)=2 and parameter[1][@type='android.content.Context'] and parameter[2][@type='android.content.Intent']]" name="visibility">protected</attr>
+</metadata>
