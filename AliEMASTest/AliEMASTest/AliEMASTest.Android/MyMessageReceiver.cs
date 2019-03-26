@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Com.Alibaba.Sdk.Android.Man;
 using Com.Alibaba.Sdk.Android.Push;
 using Com.Alibaba.Sdk.Android.Push.Noonesdk;
 using Com.Alibaba.Sdk.Android.Push.Notification;
@@ -59,6 +60,10 @@ namespace AliEMASTest.Droid
             PushServiceFactory.Init(this);
             PushServiceFactory.CloudPushService.Register(this, new CallBack());
             var deviceId = PushServiceFactory.CloudPushService.DeviceId;
+
+            IMANService manService = MANServiceProvider.Service;
+            manService.MANAnalytics.TurnOnDebug();
+            manService.MANAnalytics.Init(this, this.ApplicationContext);
         }
 
         public class CallBack : Java.Lang.Object, ICommonCallback

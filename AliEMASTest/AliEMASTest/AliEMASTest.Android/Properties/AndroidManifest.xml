@@ -12,5 +12,18 @@
 		<!-- 请填写你自己的- appKey -->
 		<meta-data android:name="com.alibaba.app.appsecret" android:value="b9d39d99b3c7a8696b6ff9590d5f3fb7" />
 		<!-- 请填写你自己的appSecret -->
+    
+    
 	</application>
+
+  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+  <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+  <uses-permission android:name="android.permission.READ_SETTINGS"/>
+  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  
 </manifest>
