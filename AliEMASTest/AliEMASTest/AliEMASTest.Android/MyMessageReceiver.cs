@@ -15,7 +15,8 @@ using Com.Alibaba.Sdk.Android.Push.Notification;
 
 namespace AliEMASTest.Droid
 {
-    [BroadcastReceiver(Name = "com.guitarpark.app.MyMessageReceiver", Exported = false), IntentFilter(new string[] { "com.alibaba.push2.action.NOTIFICATION_OPENED", "com.alibaba.push2.action.NOTIFICATION_REMOVED", "com.alibaba.sdk.android.push.RECEIVE" })]
+    [BroadcastReceiver(Name = "com.guitarpark.app.MyMessageReceiver", Exported = false),
+        IntentFilter(new string[] { "com.alibaba.push2.action.NOTIFICATION_OPENED", "com.alibaba.push2.action.NOTIFICATION_REMOVED", "com.alibaba.sdk.android.push.RECEIVE" })]
     public class MyMessageReceiver : MessageReceiver
     {
         protected override void OnNotification(Context p0, string p1, string p2, IDictionary<string, string> p3)
@@ -47,23 +48,14 @@ namespace AliEMASTest.Droid
     }
 
     [Application(Name = "com.guitarpark.app.MainApplication")]
-    public class MainApplication : Application
+    public class MainApplication : AliEMAS.Binding.Droid.PushApplication
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
         }
-
-
         public override void OnCreate()
         {
             base.OnCreate();
-
-            var aaa = Build.VERSION.SdkInt;
-            var bbb = Build.VERSION_CODES.O;
-
-
-            var nnn = aaa > bbb;
-
             PushServiceFactory.Init(this);
             PushServiceFactory.CloudPushService.Register(this, new CallBack());
             var deviceId = PushServiceFactory.CloudPushService.DeviceId;
