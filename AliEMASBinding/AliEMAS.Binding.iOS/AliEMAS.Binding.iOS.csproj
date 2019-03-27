@@ -7,9 +7,9 @@
     <ProjectGuid>{0DBD983F-BD8F-4BD6-B08A-AD28457D35EF}</ProjectGuid>
     <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NativeLibrary</RootNamespace>
+    <RootNamespace>AliEMAS.Binding.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>NativeLibrary</AssemblyName>
+    <AssemblyName>AliEMAS.Binding.iOS</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +42,9 @@
     <Compile Include="AlicloudMobileAnalitics.linkwith.cs">
       <DependentUpon>AlicloudMobileAnalitics.a</DependentUpon>
     </Compile>
+    <Compile Include="libEmptyLibrary.linkwith.cs">
+      <DependentUpon>libEmptyLibrary.a</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,26 @@
   </ItemGroup>
   <ItemGroup>
     <ObjcBindingNativeLibrary Include="AlicloudMobileAnalitics.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="Native References/AlicloudMobileAnalitics.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="Native References/AlicloudUtils.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="Native References/CloudPushSDK.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="Native References/UTDID.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="Native References/UTMini.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingNativeLibrary Include="libEmptyLibrary.a" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>

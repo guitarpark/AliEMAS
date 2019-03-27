@@ -1,4 +1,4 @@
 using System;
 using ObjCRuntime;
 
-[assembly: LinkWith ("AlicloudMobileAnalitics.a", LinkTarget.ArmV7 | LinkTarget.ArmV7s | LinkTarget.Simulator, ForceLoad = true)]
+[assembly: LinkWith("libEmptyLibrary.a", LinkTarget.ArmV7 | LinkTarget.Simulator, ForceLoad = true, Frameworks = "CoreTelephony SystemConfiguration", LinkerFlags = "-ObjC -lz -lresolv -lsqlite3")]
