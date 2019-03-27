@@ -42,6 +42,9 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AliEMAS.Binding.Droid">
+      <HintPath>..\..\..\AliEMASBinding\AliEMAS.Binding.Droid\bin\Debug\AliEMAS.Binding.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -89,16 +92,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-xhdpi-v4\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\xml\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AliEMASBinding\AliEMAS.Binding.Droid\AliEMAS.Binding.Droid.csproj">
-      <Project>{71c0eda9-925d-4bff-af2a-b07d889b0305}</Project>
-      <Name>AliEMAS.Binding.Droid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AliEMASTest\AliEMASTest.csproj">
       <Project>{7187F6A0-364C-4B7D-97DD-8380BB482C3E}</Project>
       <Name>AliEMASTest</Name>

@@ -41,8 +41,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Additions\PushApplication.cs" />
-    <Compile Include="Additions\PushSDKRequired.cs" />
+    <Compile Include="Additions\Extensions.cs" />
+    <Compile Include="Additions\SDKRequired.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,11 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedJar Include="Jars\alicloud-android-beacon-1.0.1.jar" />
-    <EmbeddedJar Include="Jars\alicloud-android-ut-5.4.0.jar" />
     <EmbeddedJar Include="Jars\alicloud-android-utils-1.1.3.jar" />
     <EmbeddedJar Include="Jars\utdid4all-1.1.5.3_proguard.jar" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <LibraryProjectZip Include="Jars\alicloud-android-man-1.2.4.aar" />
   </ItemGroup>
@@ -67,6 +65,9 @@
     <EmbeddedNativeLibrary Include="jniLibs\armeabi-v7a\libMotu.so" />
     <EmbeddedNativeLibrary Include="jniLibs\armeabi\libMotu.so" />
     <EmbeddedNativeLibrary Include="jniLibs\x86\libMotu.so" />
+  </ItemGroup>
+  <ItemGroup>
+    <InputJar Include="Jars\alicloud-android-ut-5.4.0.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

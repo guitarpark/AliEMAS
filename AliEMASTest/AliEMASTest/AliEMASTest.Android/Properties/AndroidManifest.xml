@@ -1,29 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.guitarpark.app">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="26" />
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="26" />
 
-	<application android:label="AliEMASTest.Android"  android:icon="@mipmap/icon">>
 
-		<!-- V3.0.9及以上版本需配置 -->
-		<activity android:name="com.alibaba.sdk.android.push.keeplive.PushExtActivity" android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard" 
-              android:excludeFromRecents="true" android:exported="false" android:finishOnTaskLaunch="false" android:launchMode="singleInstance" 
-              android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:process=":channel"></activity>
-		<meta-data android:name="com.alibaba.app.appkey" android:value="25910622" />
-		<!-- 请填写你自己的- appKey -->
-		<meta-data android:name="com.alibaba.app.appsecret" android:value="b9d39d99b3c7a8696b6ff9590d5f3fb7" />
-		<!-- 请填写你自己的appSecret -->
-    
-    
-	</application>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-  <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
-  <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-  <uses-permission android:name="android.permission.READ_SETTINGS"/>
-  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   
+  <application android:label="AliEMASTest.Android"  android:icon="@mipmap/icon">
+    <!-- V3.0.9及以上版本需配置 -->
+    <activity android:name="com.alibaba.sdk.android.push.keeplive.PushExtActivity" android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
+              android:excludeFromRecents="true" android:exported="false" android:finishOnTaskLaunch="false" android:launchMode="singleInstance"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:process=":channel"></activity>
+
+    <meta-data android:name="com.alibaba.app.appkey" android:value="25910622" />
+    <meta-data android:name="com.alibaba.app.appsecret" android:value="b9d39d99b3c7a8696b6ff9590d5f3fb7" />
+
+    <activity
+               android:name="com.alibaba.sdk.android.feedback.windvane.CustomHybirdActivity"
+               android:configChanges="keyboardHidden|orientation"
+               android:launchMode="singleTop"
+               android:screenOrientation="portrait"
+               android:theme="@style/ali_feedback_contentoverlay"
+               android:windowSoftInputMode="adjustResize" />
+    <activity
+        android:name="com.alibaba.sdk.android.feedback.impl.ErrorPageActivity"
+        android:configChanges="keyboardHidden|orientation"
+        android:launchMode="singleTop"
+        android:screenOrientation="portrait"
+        android:theme="@style/ali_feedback_contentoverlay" />
+
+    <service android:name="com.alibaba.mtl.appmonitor.AppMonitorService" />
+
+    <provider
+        android:name="com.alibaba.sdk.android.feedback.util.FBFileProvider"
+        android:authorities="${applicationId}.alifb_fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true" >
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/alifb_provider_paths" />
+    </provider>
+    
+  </application>
+
 </manifest>

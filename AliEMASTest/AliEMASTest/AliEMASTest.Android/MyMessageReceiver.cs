@@ -22,7 +22,7 @@ namespace AliEMASTest.Droid
     {
         protected override void OnNotification(Context p0, string p1, string p2, IDictionary<string, string> p3)
         {
-            
+
             base.OnNotification(Android.App.Application.Context, p1, p2, p3);
         }
         protected override void OnMessage(Context p0, CPushMessage p1)
@@ -49,7 +49,7 @@ namespace AliEMASTest.Droid
     }
 
     [Application(Name = "com.guitarpark.app.MainApplication")]
-    public class MainApplication : AliEMAS.Binding.Droid.PushApplication
+    public class MainApplication : Application
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -57,13 +57,8 @@ namespace AliEMASTest.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            PushServiceFactory.Init(this);
-            PushServiceFactory.CloudPushService.Register(this, new CallBack());
-            var deviceId = PushServiceFactory.CloudPushService.DeviceId;
-
-            IMANService manService = MANServiceProvider.Service;
-            manService.MANAnalytics.TurnOnDebug();
-            manService.MANAnalytics.Init(this, this.ApplicationContext);
+            AliEMAS.Extensions.InitMan(this, ApplicationContext, true);
+            var info = AliEMAS.Extensions.InitPush(this, new CallBack());
         }
 
         public class CallBack : Java.Lang.Object, ICommonCallback
