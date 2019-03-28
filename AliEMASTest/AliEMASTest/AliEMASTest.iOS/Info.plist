@@ -30,5 +30,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>AliEMASTest</string>
+	<key>MinimumOSVersion</key>
+	<string>12.1</string>
 </dict>
 </plist>

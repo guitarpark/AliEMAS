@@ -51,6 +51,9 @@
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ObjcBindingNativeLibrary Include="libEmptyLibrary.a" />
+  </ItemGroup>
+  <ItemGroup>
     <NativeReference Include="Native References/AlicloudMobileAnalitics.framework">
       <Kind>Framework</Kind>
     </NativeReference>
@@ -60,15 +63,15 @@
     <NativeReference Include="Native References/CloudPushSDK.framework">
       <Kind>Framework</Kind>
     </NativeReference>
+    <NativeReference Include="Native References/CrashReporter.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
     <NativeReference Include="Native References/UTDID.framework">
       <Kind>Framework</Kind>
     </NativeReference>
     <NativeReference Include="Native References/UTMini.framework">
       <Kind>Framework</Kind>
     </NativeReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ObjcBindingNativeLibrary Include="libEmptyLibrary.a" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>
