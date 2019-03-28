@@ -21,6 +21,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BTouchExtraArgs>
+    </BTouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -61,9 +63,6 @@
       <Kind>Framework</Kind>
     </NativeReference>
     <NativeReference Include="Native References/CloudPushSDK.framework">
-      <Kind>Framework</Kind>
-    </NativeReference>
-    <NativeReference Include="Native References/CrashReporter.framework">
       <Kind>Framework</Kind>
     </NativeReference>
     <NativeReference Include="Native References/UTDID.framework">

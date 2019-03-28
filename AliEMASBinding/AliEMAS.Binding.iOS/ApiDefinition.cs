@@ -8,6 +8,7 @@ namespace AliEMAS
 {
     // @interface ALBBMANAnalytics : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface ALBBMANAnalytics
     {
         // +(ALBBMANAnalytics *)getInstance;
