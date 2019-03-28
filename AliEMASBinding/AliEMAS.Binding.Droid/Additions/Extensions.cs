@@ -20,13 +20,13 @@ namespace AliEMAS
     /// https://help.aliyun.com/document_detail/30037.html
     /// 其余的懒得写了
     /// </summary>
-    public static class Extensions    {
+    public class Extensions     {
         /// <summary>
         /// 初始化推送
         /// </summary>
         /// <param name="context"></param>
         /// <param name="callBack"></param>
-        /// <returns></returns>        public static ICloudPushService InitPush(Context context, ICommonCallback callBack)
+        /// <returns></returns>        public ICloudPushService InitPush(Context context, ICommonCallback callBack)
         {
 
             PushServiceFactory.Init(context);
@@ -39,7 +39,7 @@ namespace AliEMAS
         /// <param name="application"></param>
         /// <param name="context"></param>
         /// <param name="debug">是否在控制台输出日志</param>
-        public static void InitMan(Application application, Context context, bool debug)
+        public void InitMan(Application application, Context context, bool debug)
         {
             IMANService manService = MANServiceProvider.Service;
             if (debug)
@@ -50,7 +50,7 @@ namespace AliEMAS
         /// 用户注册埋点
         /// </summary>
         /// <param name="data"></param>
-        public static void UserRegister(string data)
+        public void UserRegister(string data)
         {
             MANServiceProvider.Service.MANAnalytics.UserRegister(data);
         }
@@ -59,14 +59,14 @@ namespace AliEMAS
         /// </summary>
         /// <param name="data"></param>
         /// <param name="userId"></param>
-        public static void UserUpdateAccount(string data, string userId)
+        public void UserUpdateAccount(string data, string userId)
         {
             MANServiceProvider.Service.MANAnalytics.UpdateUserAccount(data, userId);
         }
         /// <summary>
         /// 用户注销
         /// </summary>
-        public static void UserLoginOut()
+        public void UserLoginOut()
         {
             MANServiceProvider.Service.MANAnalytics.UpdateUserAccount("", "");
         }
@@ -75,7 +75,7 @@ namespace AliEMAS
         /// 说明：Mobile Analytics SDK默认会自动采集Android 4.0及以上系统的Activity 页面，如果不需要自动采集可使用下面方法关闭自动页面打点。
         /// 打开页面自动埋点时，默认页面名称为class.getSimpleName()并去除Activity后缀。
         /// </summary>
-        public static void CloseAutoPageTrack()
+        public void CloseAutoPageTrack()
         {
             MANServiceProvider.Service.MANAnalytics.TurnOffAutoPageTrack();
         }
@@ -85,7 +85,7 @@ namespace AliEMAS
         /// 页面显示的时候
         /// </summary>
         /// <param name="activity"></param>
-        public static void PageAppear(Activity activity)
+        public void PageAppear(Activity activity)
         {
             MANServiceProvider.Service.MANPageHitHelper.PageAppear(activity);
         }
@@ -93,7 +93,7 @@ namespace AliEMAS
         /// 页面退出的时候
         /// </summary>
         /// <param name="activity"></param>
-        public static void PageDisAppear(Activity activity)
+        public void PageDisAppear(Activity activity)
         {
             MANServiceProvider.Service.MANPageHitHelper.PageDisAppear(activity);
         }
@@ -101,7 +101,7 @@ namespace AliEMAS
         /// 针对页面的自定义属性埋点，比如：同样一个页面，不同的商品信息
         /// </summary>
         /// <param name="data"></param>
-        public static void PageProperties(Dictionary<string,string> data)
+        public void PageProperties(Dictionary<string,string> data)
         {
             MANServiceProvider.Service.MANPageHitHelper.UpdatePageProperties(data);
         }
@@ -112,7 +112,7 @@ namespace AliEMAS
         /// <param name="referPageName">来源页面</param>
         /// <param name="duration">页面停留时间</param>
         /// <param name="properties">自定义属性</param>
-        public static void CustomPage(string pageName,string referPageName,long duration,Dictionary<string, string> properties)
+        public void CustomPage(string pageName,string referPageName,long duration,Dictionary<string, string> properties)
         {
             MANPageHitBuilder pageHitBuilder = new MANPageHitBuilder(pageName);
             pageHitBuilder.SetReferPage(referPageName);
@@ -131,7 +131,7 @@ namespace AliEMAS
         /// <param name="method"></param>
         /// <returns></returns>
 
-        public static MANNetworkPerformanceHitBuilder NetworkPerCreate(string url,string method)
+        public MANNetworkPerformanceHitBuilder NetworkPerCreate(string url,string method)
         {
             return new MANNetworkPerformanceHitBuilder(url, method);
         }
@@ -139,7 +139,7 @@ namespace AliEMAS
         /// 打开网络统计
         /// </summary>
         /// <param name="builder"></param>
-        public static void NetworkPerOpen(this MANNetworkPerformanceHitBuilder  builder)
+        public void NetworkPerOpen(MANNetworkPerformanceHitBuilder  builder)
         {
             builder.HitRequestStart();
         }
@@ -149,7 +149,7 @@ namespace AliEMAS
         /// <param name="builder"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void NetworkExtraInfo(this MANNetworkPerformanceHitBuilder builder,string key,string value)
+        public void NetworkExtraInfo(MANNetworkPerformanceHitBuilder builder,string key,string value)
         {
             builder.WithExtraInfo(key, value);
         }
@@ -158,7 +158,7 @@ namespace AliEMAS
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="length"></param>
-        public static void NetworkPerClose(this MANNetworkPerformanceHitBuilder builder,int length)
+        public void NetworkPerClose(MANNetworkPerformanceHitBuilder builder,int length)
         {
             builder.HitRequestEndWithLoadBytes(length);
         }

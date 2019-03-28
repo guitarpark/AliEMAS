@@ -41,7 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Additions\Extensions.cs" />
     <Compile Include="Additions\SDKRequired.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

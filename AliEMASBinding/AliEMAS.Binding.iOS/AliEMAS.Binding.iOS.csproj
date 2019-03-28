@@ -10,6 +10,8 @@
     <RootNamespace>AliEMAS.Binding.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>AliEMAS.Binding.iOS</AssemblyName>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,6 +65,9 @@
       <Kind>Framework</Kind>
     </NativeReference>
     <NativeReference Include="Native References/CloudPushSDK.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="Native References/CrashReporter.framework">
       <Kind>Framework</Kind>
     </NativeReference>
     <NativeReference Include="Native References/UTDID.framework">

@@ -20,8 +20,6 @@ namespace AliEMASTest.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-
-            Com.Alibaba.Sdk.Android.Feedback.Impl.FeedbackAPI.OpenFeedbackActivity();
         }
     }
 }

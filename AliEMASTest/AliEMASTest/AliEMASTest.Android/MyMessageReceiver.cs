@@ -57,8 +57,7 @@ namespace AliEMASTest.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            AliEMAS.Extensions.InitMan(this, ApplicationContext, true);
-            var info = AliEMAS.Extensions.InitPush(this, new CallBack());
+            var result = AliEMAS.Droid.DroidServices.Init(this, ApplicationContext, new CallBack(), true);
         }
 
         public class CallBack : Java.Lang.Object, ICommonCallback

@@ -142,7 +142,8 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AliEMAS.Binding.iOS">
+    <Reference Include="AliEMAS.Binding.iOS, Version=1.0.7026.26949, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\AliEMASBinding\AliEMAS.Binding.iOS\bin\Debug\AliEMAS.Binding.iOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />

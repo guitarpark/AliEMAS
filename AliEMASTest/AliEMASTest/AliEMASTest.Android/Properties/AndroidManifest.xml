@@ -11,7 +11,7 @@
   <uses-permission android:name="android.permission.WRITE_SETTINGS" />
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-  
+
   <application android:label="AliEMASTest.Android"  android:icon="@mipmap/icon">
     <!-- V3.0.9及以上版本需配置 -->
     <activity android:name="com.alibaba.sdk.android.push.keeplive.PushExtActivity" android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
@@ -21,32 +21,6 @@
     <meta-data android:name="com.alibaba.app.appkey" android:value="25910622" />
     <meta-data android:name="com.alibaba.app.appsecret" android:value="b9d39d99b3c7a8696b6ff9590d5f3fb7" />
 
-    <activity
-               android:name="com.alibaba.sdk.android.feedback.windvane.CustomHybirdActivity"
-               android:configChanges="keyboardHidden|orientation"
-               android:launchMode="singleTop"
-               android:screenOrientation="portrait"
-               android:theme="@style/ali_feedback_contentoverlay"
-               android:windowSoftInputMode="adjustResize" />
-    <activity
-        android:name="com.alibaba.sdk.android.feedback.impl.ErrorPageActivity"
-        android:configChanges="keyboardHidden|orientation"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait"
-        android:theme="@style/ali_feedback_contentoverlay" />
-
-    <service android:name="com.alibaba.mtl.appmonitor.AppMonitorService" />
-
-    <provider
-        android:name="com.alibaba.sdk.android.feedback.util.FBFileProvider"
-        android:authorities="${applicationId}.alifb_fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true" >
-      <meta-data
-          android:name="android.support.FILE_PROVIDER_PATHS"
-          android:resource="@xml/alifb_provider_paths" />
-    </provider>
-    
   </application>
 
 </manifest>
