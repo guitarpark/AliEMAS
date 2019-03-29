@@ -5,10 +5,9 @@
              x:Class="AliEMASTest.MainPage">
 
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <Button Text="用户注册埋点" Clicked="Button_Clicked"/>
+        <Button Text="用户登录埋点" Clicked="Button_Clicked_1"/>
+        <Button Text="用户用户注销埋点" Clicked="Button_Clicked_2"/>
     </StackLayout>
 
 </ContentPage>

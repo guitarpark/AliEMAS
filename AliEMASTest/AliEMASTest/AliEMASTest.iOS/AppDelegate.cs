@@ -24,9 +24,7 @@ namespace AliEMASTest.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-
-            var nnn = AliEMAS.ALBBMANAnalytics.Instance;
-            nnn.InitWithAppKey("25906016", "9753b8649c80ba3b4288d76dff381f2e");
+            AliEMAS.iOS.iOSServices.Init("25906016", "9753b8649c80ba3b4288d76dff381f2e",true);
             return base.FinishedLaunching(app, options);
         }
     }
