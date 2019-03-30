@@ -66,7 +66,7 @@
     <EmbeddedNativeLibrary Include="jniLibs\x86\libMotu.so" />
   </ItemGroup>
   <ItemGroup>
-    <InputJar Include="Jars\alicloud-android-ut-5.4.0.jar" />
+    <EmbeddedJar Include="Jars\alicloud-android-ut-5.4.0.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

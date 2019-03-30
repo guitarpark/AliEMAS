@@ -36,8 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AliEMAS.Binding.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AliEMAS.Binding.Droid">
       <HintPath>..\AliEMAS.Binding.Droid\bin\Debug\AliEMAS.Binding.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

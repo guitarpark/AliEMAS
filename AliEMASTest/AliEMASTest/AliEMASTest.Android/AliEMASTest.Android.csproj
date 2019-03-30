@@ -42,7 +42,8 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AliEMAS.Binding.Droid">
+    <Reference Include="AliEMAS.Binding.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\AliEMASBinding\AliEMAS.Binding.Droid\bin\Debug\AliEMAS.Binding.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
@@ -100,6 +101,10 @@
     <Folder Include="Resources\xml\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\AliEMASBinding\AliEMAS.Droid\AliEMAS.Droid.csproj">
+      <Project>{45e5828d-7eb0-4244-84b6-3a2748aba5c6}</Project>
+      <Name>AliEMAS.Droid</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AliEMASTest\AliEMASTest.csproj">
       <Project>{7187F6A0-364C-4B7D-97DD-8380BB482C3E}</Project>
       <Name>AliEMASTest</Name>
