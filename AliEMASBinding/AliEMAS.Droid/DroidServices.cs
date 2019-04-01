@@ -15,6 +15,8 @@ using Com.Alibaba.Sdk.Android.Man;
 using Com.Alibaba.Sdk.Android.Man.Network;
 using Com.Alibaba.Sdk.Android.Push;
 using Com.Alibaba.Sdk.Android.Push.Noonesdk;
+using Com.Alibaba.Sdk.Android.Push.Register;
+
 [assembly: Xamarin.Forms.Dependency(typeof(DroidServices))]
 namespace AliEMAS.Droid
 {
@@ -26,8 +28,21 @@ namespace AliEMAS.Droid
         /// <param name="application"></param>
         /// <param name="context"></param>
         /// <param name="callBack"></param>
+        /// <param name="appKey"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="channelDescription">配置通知渠道的属性</param>
+        /// <param name="channelId">通知渠道的id</param>
+        /// <param name="channelName">用户可以看到的通知渠道的名字</param>
+        /// <param name="applicationId">接入FCM/GCM初始化推送</param>
+        /// <param name="sendId">接入FCM/GCM初始化推送</param>
+        /// <param name="debug">启用调试</param>
+        /// <param name="xiaomiId">小米Id</param>
+        /// <param name="xiaomiKey">小米Key</param>
         /// <returns></returns>
-        public static ICloudPushService Init(string appKey, string appSecret, Application application, Context context, ICommonCallback callBack, bool debug)
+        public static ICloudPushService Init(string appKey, string appSecret, Application application, Context context, ICommonCallback callBack,
+            string channelId="",string channelName="",string channelDescription="",bool debug=false,
+            string xiaomiId = "", string xiaomiKey = "", string sendId = "", string applicationId=""
+            )
         {
             IMANService manService = MANServiceProvider.Service;
             if (debug)
@@ -37,6 +52,28 @@ namespace AliEMAS.Droid
             PushServiceFactory.Init(context);
             PushServiceFactory.CloudPushService.Register(context, appKey, appSecret, callBack);
 
+            // Android 8.0以上设备无法收到处理
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
+                
+                var importance = NotificationManager.ImportanceHigh;
+                NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
+                // 
+                mChannel.Description = channelDescription;
+                // 设置通知出现时的闪灯（如果 android 设备支持的话）
+                mChannel.EnableLights(true);
+                //mChannel.LightColor = ;
+                // 设置通知出现时的震动（如果 android 设备支持的话）
+                mChannel.EnableVibration(true);
+                mChannel.SetVibrationPattern(new long[] { 100, 200, 300, 400, 500, 400, 300, 200, 400 });
+                //最后在notificationmanager中创建该通知渠道
+                notificationManager.CreateNotificationChannel(mChannel);
+            }
+
+            MiPushRegister.Register(context, xiaomiId, xiaomiKey); // 初始化小米辅助推送
+            HuaWeiRegister.Register(context); // 接入华为辅助推送
+            GcmRegister.Register(context, sendId, applicationId); // 接入FCM/GCM初始化推送
 
             return PushServiceFactory.CloudPushService;
         }

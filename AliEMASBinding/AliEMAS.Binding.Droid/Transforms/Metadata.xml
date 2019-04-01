@@ -10,6 +10,8 @@
   <remove-node path="/api/package[@name='org.android.spdy']/class[@name='SpdyByteArray']"/>
   <remove-node path="/api/package[@name='com.alibaba.sdk.android.push.common.util.sendrequest']/class[@name='SendRequestTask']"/>
   <remove-node path="/api/package[@name='com.alibaba.sdk.android.push.securitybox.alipush']/class[@name='AliPushSecurityBoxServiceFactoryProvider']"/>
-
-  <attr path="/api/package[@name='com.alibaba.sdk.android.push']/class[@name='MessageReceiver']/method[@name='onHandleCall' and count(parameter)=2 and parameter[1][@type='android.content.Context'] and parameter[2][@type='android.content.Intent']]" name="visibility">protected</attr>
+  <!--    第三方推送辅助通道  -->
+  <remove-node path="/api/package[@name='com.huawei.android.pushselfshow.utils']/class[@name='RelativeLayoutForBckgColor']"/>
+  <!--    protect改成public -->
+  <attr path="/api/package[@name='com.alibaba.sdk.android.push']/class[@name='AgooMessageReceiver']/method[@name='onHandleCall' and count(parameter)=2 and parameter[1][@type='android.content.Context'] and parameter[2][@type='android.content.Intent']]" name="visibility">public</attr>
 </metadata>

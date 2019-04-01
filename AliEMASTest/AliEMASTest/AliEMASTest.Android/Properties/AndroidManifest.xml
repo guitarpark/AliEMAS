@@ -11,6 +11,11 @@
   <uses-permission android:name="android.permission.WRITE_SETTINGS" />
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+  <!--  小米辅助通道配置  -->
+  <!--这里com.xiaomi.mipushdemo改成app的包名-->
+  <permission android:name="com.guitarpark.app.permission.MIPUSH_RECEIVE" android:protectionLevel="signature" />
+  <!--这里com.xiaomi.mipushdemo改成app的包名-->
+  <uses-permission android:name="com.guitarpark.app.permission.MIPUSH_RECEIVE" />
 
   <application android:label="AliEMASTest.Android"  android:icon="@mipmap/icon">
     <!-- V3.0.9及以上版本需配置 -->
