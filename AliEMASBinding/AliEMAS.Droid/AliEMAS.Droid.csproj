@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AliEMAS.Binding.Droid">
-      <HintPath>..\AliEMAS.Binding.Droid\bin\Debug\AliEMAS.Binding.Droid.dll</HintPath>
+      <HintPath>..\AliEMAS.Binding.Droid\bin\Release\AliEMAS.Binding.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
