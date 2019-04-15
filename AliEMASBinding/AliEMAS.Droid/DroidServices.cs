@@ -40,8 +40,8 @@ namespace AliEMAS.Droid
         /// <param name="xiaomiKey">小米Key</param>
         /// <returns></returns>
         public static ICloudPushService Init(string appKey, string appSecret, Application application, Context context, ICommonCallback callBack,
-            string channelId="",string channelName="",string channelDescription="",bool debug=false,
-            string xiaomiId = "", string xiaomiKey = "", string sendId = "", string applicationId=""
+            string channelId, string channelName, string channelDescription, bool debug = false,
+            string xiaomiId = "", string xiaomiKey = "", string sendId = "", string applicationId = ""
             )
         {
             IMANService manService = MANServiceProvider.Service;
@@ -56,9 +56,8 @@ namespace AliEMAS.Droid
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
                 NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
-                
-                var importance = NotificationManager.ImportanceHigh;
-                NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
+
+                NotificationChannel mChannel = new NotificationChannel(channelId, channelName, NotificationImportance.High);
                 // 
                 mChannel.Description = channelDescription;
                 // 设置通知出现时的闪灯（如果 android 设备支持的话）

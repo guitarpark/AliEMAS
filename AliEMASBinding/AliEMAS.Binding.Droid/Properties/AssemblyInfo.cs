@@ -46,5 +46,6 @@ using Android.App;
 [assembly: UsesPermission(Android.Manifest.Permission.ReadExternalStorage)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 [assembly: UsesPermission(Android.Manifest.Permission.MountUnmountFilesystems)]
+[assembly: UsesPermission(Android.Manifest.Permission.AccessNotificationPolicy)]
 [assembly:UsesPermission("com.huawei.android.push.intent.REGISTER")]
 #endregion

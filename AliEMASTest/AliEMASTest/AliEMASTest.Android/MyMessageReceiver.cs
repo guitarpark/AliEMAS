@@ -57,7 +57,7 @@ namespace AliEMASTest.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            var result = AliEMAS.Droid.DroidServices.Init("25910622", "b9d39d99b3c7a8696b6ff9590d5f3fb7", this, this.ApplicationContext, new CallBack(), debug: true);
+            var result = AliEMAS.Droid.DroidServices.Init("25910622", "b9d39d99b3c7a8696b6ff9590d5f3fb7", this, this.ApplicationContext, new CallBack(),"1","guitarpark","Guitarpark.com", debug: true);
         }
 
         public class CallBack : Java.Lang.Object, ICommonCallback
