@@ -13,13 +13,80 @@ namespace AliEMAS.iOS
 {
     public class iOSServices : IAliEMAS
     {
-        public static void Init(string appKey, string appSecret, bool debug)
+        #region 阿里推送
+        public static (bool, string) Init(string appKey, string appSecret, UIApplication application, bool debug)
         {
             ALBBMANAnalytics.Instance.InitWithAppKey(appKey, appSecret);
             if (debug)
                 ALBBMANAnalytics.Instance.TurnOnDebug();
+            //注册移动推送
 
+            bool result = false;
+            string message = string.Empty;
+            RegisterAPNS(application);
+            AliEMAS.Binding.iOS.CloudPushSDK.AsyncInit(appKey, appSecret, (s) =>
+            {
+                if (s.Success)
+                {
+                    result = true;
+                    message = CloudPushSDK.DeviceId;
+                    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                    {
+                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                    });
+                }
+                else
+                {
+                    message = s.Error.ToString();
+                }
+            });
+            RegisterMessageReceive();
+            return (result, message);
         }
+        /// <summary>
+        /// 注册苹果推送，获取deviceToken用于推送
+        /// </summary>
+        static void RegisterAPNS(UIApplication application)
+        {
+            if (System.Convert.ToDouble(UIDevice.CurrentDevice.SystemVersion) >= 8.0)
+            {
+                //  iOS 8 Notifications
+                application.RegisterUserNotificationSettings(UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, null));
+                application.RegisterForRemoteNotifications();
+            }
+            else
+            {
+                //  ios8以下的放弃了
+                // iOS < 8 Notifications
+                UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound);
+            }
+        }
+        /// <summary>
+        /// 注册推送通道打开监听
+        /// </summary>
+        void ListenerOnChannelOpened()
+        {
+            NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidChannelConnectedSuccess", (NSNotification notification) =>
+            {
+                Console.WriteLine("消息通道建立成功");
+            });
+        }
+        /// <summary>
+        ///  注册推送消息到来监听
+        /// </summary>
+        public void RegisterMessageReceive()
+        {
+            NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidReceiveMessageNotification", (NSNotification notification) =>
+            {
+                CCPSysMessage message = notification.Object as CCPSysMessage;
+                string title = NSString.FromData(message.Title, NSStringEncoding.UTF8);
+                string body = NSString.FromData(message.Title, NSStringEncoding.UTF8);
+                Console.WriteLine("Receive message: title = " + title + "   " + "body = " + body);
+            });
+        }
+
+        #endregion
+
         public void CloseAutoPageTrack()
         {
             //无此接口

@@ -370,5 +370,21 @@ namespace AliEMAS.Binding.iOS
         [Export("resultWithError:")]
         CloudPushCallbackResult ResultWithError([NullAllowed] NSError error);
     }
+    // @interface CCPSysMessage : NSObject
+    [BaseType(typeof(NSObject))]
+    interface CCPSysMessage
+    {
+        // @property UInt8 messageType;
+        [Export("messageType")]
+        byte MessageType { get; set; }
+
+        // @property NSData * title;
+        [Export("title", ArgumentSemantic.Assign)]
+        NSData Title { get; set; }
+
+        // @property NSData * body;
+        [Export("body", ArgumentSemantic.Assign)]
+        NSData Body { get; set; }
+    }
 }
 
