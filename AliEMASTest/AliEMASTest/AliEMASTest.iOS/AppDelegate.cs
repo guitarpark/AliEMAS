@@ -25,7 +25,7 @@ namespace AliEMASTest.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            var result = AliEMAS.iOS.iOSServices.Init("", "", app, options, true);
+            var result = AliEMAS.iOS.iOSServices.Init("26005048", "e79266df79fad74532472bd3c5079b2c", app, options, true);
             return base.FinishedLaunching(app, options);
         }
         #region 阿里推送
@@ -40,7 +40,7 @@ namespace AliEMASTest.iOS
             AliEMAS.Binding.iOS.CloudPushSDK.RegisterDevice(deviceToken, (result) =>
             {
                 if (result.Success)
-                    Console.WriteLine("Register deviceToken success");
+                    Console.WriteLine("Register deviceToken success:"+ deviceToken);
                 else
                     Console.WriteLine("Register deviceToken failed = " + result.Error);
             });
@@ -53,6 +53,7 @@ namespace AliEMASTest.iOS
         /// <param name="error"></param>
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
         {
+            Console.WriteLine("FailedToRegisterForRemoteNotifications:" + error.ToString());
 
             // base.FailedToRegisterForRemoteNotifications(application, error);
         }

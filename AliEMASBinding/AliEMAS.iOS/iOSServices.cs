@@ -13,39 +13,26 @@ namespace AliEMAS.iOS
 {
     public class iOSServices : IAliEMAS
     {
-        #region 阿里推送
-        public static (bool, string) Init(string appKey, string appSecret, UIApplication application, NSDictionary options, bool debug)
+        public static bool Init(string appKey, string appSecret, UIApplication application, NSDictionary options, bool debug = false)
         {
-            bool result = false;
-            string message = string.Empty;
             try
             {
                 ALBBMANAnalytics.Instance.InitWithAppKey(appKey, appSecret);
                 if (debug)
                     ALBBMANAnalytics.Instance.TurnOnDebug();
-                //注册移动推送
 
+                #region 阿里推送
                 RegisterAPNS(application);
-                AliEMAS.Binding.iOS.CloudPushSDK.AsyncInit(appKey, appSecret, (s) =>
+                InitCloudPush(appKey, appSecret);
+
+                NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidChannelConnectedSuccess", (NSNotification notification) =>
                 {
-                    if (s.Success)
-                    {
-                        result = true;
-                        message = CloudPushSDK.DeviceId;
-                        Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-                        {
-                            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
-                        });
-                    }
-                    else
-                    {
-                        message = s.Error.ToString();
-                    }
+                    Console.WriteLine("消息通道建立成功");
                 });
-                RegisterMessageReceive();
-                if (options == null)
-                    options = new NSDictionary();
+
+                options = options ?? new NSDictionary();
                 CloudPushSDK.SendNotificationAck(options);
+
                 //同步角标数到服务端
                 nint num = UIApplication.SharedApplication.ApplicationIconBadgeNumber;
                 //每次打开APP 角标就置空0
@@ -56,13 +43,18 @@ namespace AliEMAS.iOS
                     else
                         Console.WriteLine("同步角标失败");
                 });
+                #endregion
+
+                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("初始化阿里错误:" + ex.Message);
+                return true;
             }
-            return (result, message);
         }
+
+        #region 阿里推送
         /// <summary>
         /// 注册苹果推送，获取deviceToken用于推送
         /// </summary>
@@ -70,31 +62,42 @@ namespace AliEMAS.iOS
         {
             if (System.Convert.ToDouble(UIDevice.CurrentDevice.SystemVersion) >= 8.0)
             {
-                //  iOS 8 Notifications
+                // iOS 8 Notifications
                 application.RegisterUserNotificationSettings(UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, null));
                 application.RegisterForRemoteNotifications();
             }
             else
             {
-                //  ios8以下的放弃了
                 // iOS < 8 Notifications
                 UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound);
             }
         }
+
         /// <summary>
-        /// 注册推送通道打开监听
+        /// SDK初始化
         /// </summary>
-        void ListenerOnChannelOpened()
+        static void InitCloudPush(string appkey, string appSecret)
         {
-            NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidChannelConnectedSuccess", (NSNotification notification) =>
+            CloudPushSDK.AsyncInit(appkey, appSecret, (CloudPushCallbackResult res) =>
             {
-                Console.WriteLine("消息通道建立成功");
+                if (res.Success)
+                {
+                    Console.WriteLine("Push SDK init success, deviceId:" + CloudPushSDK.DeviceId);
+                    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                    {
+                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                    });
+                }
+                else
+                {
+                    Console.WriteLine("Push SDK init failed, error:" + res.Error);
+                }
             });
         }
-        /// <summary>
-        ///  注册推送消息到来监听
-        /// </summary>
-        public static void RegisterMessageReceive()
+
+        #region  注册推送消息到来监听
+
+        public void RegisterMessageReceive()
         {
             NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidReceiveMessageNotification", (NSNotification notification) =>
             {
@@ -104,6 +107,9 @@ namespace AliEMAS.iOS
                 Console.WriteLine("Receive message: title = " + title + "   " + "body = " + body);
             });
         }
+
+        #endregion
+
         #region  App处于启动状态时，通知打开回调
 
         public static (string, UIApplicationState) DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo)
@@ -129,7 +135,6 @@ namespace AliEMAS.iOS
             return ((NSString)userInfo.ValueForKey((NSString)"Url"), application.ApplicationState);
 
         }
-
         #endregion
         #endregion
 
