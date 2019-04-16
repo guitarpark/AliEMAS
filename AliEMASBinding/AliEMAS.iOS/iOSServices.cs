@@ -14,33 +14,53 @@ namespace AliEMAS.iOS
     public class iOSServices : IAliEMAS
     {
         #region 阿里推送
-        public static (bool, string) Init(string appKey, string appSecret, UIApplication application, bool debug)
+        public static (bool, string) Init(string appKey, string appSecret, UIApplication application, NSDictionary options, bool debug)
         {
-            ALBBMANAnalytics.Instance.InitWithAppKey(appKey, appSecret);
-            if (debug)
-                ALBBMANAnalytics.Instance.TurnOnDebug();
-            //注册移动推送
-
             bool result = false;
             string message = string.Empty;
-            RegisterAPNS(application);
-            AliEMAS.Binding.iOS.CloudPushSDK.AsyncInit(appKey, appSecret, (s) =>
+            try
             {
-                if (s.Success)
+                ALBBMANAnalytics.Instance.InitWithAppKey(appKey, appSecret);
+                if (debug)
+                    ALBBMANAnalytics.Instance.TurnOnDebug();
+                //注册移动推送
+
+                RegisterAPNS(application);
+                AliEMAS.Binding.iOS.CloudPushSDK.AsyncInit(appKey, appSecret, (s) =>
                 {
-                    result = true;
-                    message = CloudPushSDK.DeviceId;
-                    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                    if (s.Success)
                     {
-                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
-                    });
-                }
-                else
+                        result = true;
+                        message = CloudPushSDK.DeviceId;
+                        Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                        {
+                            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                        });
+                    }
+                    else
+                    {
+                        message = s.Error.ToString();
+                    }
+                });
+                RegisterMessageReceive();
+                if (options == null)
+                    options = new NSDictionary();
+                CloudPushSDK.SendNotificationAck(options);
+                //同步角标数到服务端
+                nint num = UIApplication.SharedApplication.ApplicationIconBadgeNumber;
+                //每次打开APP 角标就置空0
+                CloudPushSDK.SyncBadgeNum(0, (CloudPushCallbackResult res) =>
                 {
-                    message = s.Error.ToString();
-                }
-            });
-            RegisterMessageReceive();
+                    if (res.Success)
+                        Console.WriteLine("同步角标成功");
+                    else
+                        Console.WriteLine("同步角标失败");
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
             return (result, message);
         }
         /// <summary>
@@ -74,7 +94,7 @@ namespace AliEMAS.iOS
         /// <summary>
         ///  注册推送消息到来监听
         /// </summary>
-        public void RegisterMessageReceive()
+        public static void RegisterMessageReceive()
         {
             NSNotificationCenter.DefaultCenter.AddObserver((NSString)"CCPDidReceiveMessageNotification", (NSNotification notification) =>
             {
@@ -84,7 +104,33 @@ namespace AliEMAS.iOS
                 Console.WriteLine("Receive message: title = " + title + "   " + "body = " + body);
             });
         }
+        #region  App处于启动状态时，通知打开回调
 
+        public static (string, UIApplicationState) DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo)
+        {
+            // 通知打开回执上报
+            CloudPushSDK.SendNotificationAck(userInfo);
+            //active正在打开状态，还没做
+            // 应用在前台 或者后台开启状态下，直接跳转页面。
+            if (application.ApplicationState == UIApplicationState.Active || application.ApplicationState == UIApplicationState.Inactive || application.ApplicationState == UIApplicationState.Background)
+            {
+                //取得APNS通知内容
+                NSDictionary aps = (NSDictionary)userInfo.ValueForKey((NSString)"aps");
+                // 内容
+                string content = aps.ValueForKey((NSString)"alert").ToString();
+                // 播放声音
+                string sound = aps.ValueForKey((NSString)"sound").ToString();
+                // badge数量
+                //int bajge = aps.ValueForKey((NSString)"badge");
+                // 取得Extras字段内容,
+                //服务端中Extras字段，key是自己定义的
+                string Extras = aps.ValueForKey((NSString)"Extras").ToString();
+            }
+            return ((NSString)userInfo.ValueForKey((NSString)"Url"), application.ApplicationState);
+
+        }
+
+        #endregion
         #endregion
 
         public void CloseAutoPageTrack()
