@@ -25,7 +25,7 @@ namespace AliEMASTest.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            var result = AliEMAS.iOS.iOSServices.Init("26005048", "e79266df79fad74532472bd3c5079b2c", app, options, true);
+            var result = AliEMAS.iOS.iOSServices.Init("", "", app, options, true);
             return base.FinishedLaunching(app, options);
         }
         #region 阿里推送
