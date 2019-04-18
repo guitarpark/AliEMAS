@@ -205,36 +205,6 @@ namespace AliEMAS.Binding.iOS
         void SetProperty(string property, string value);
     }
 
-    // @interface NSMutableURLRequest : NSURLRequest
-    [BaseType(typeof(NSUrlRequest))]
-    interface NSMutableURLRequest
-    {
-        // @property (copy) NSURL * _Nullable URL;
-        [NullAllowed, Export("URL", ArgumentSemantic.Copy)]
-        NSUrl URL { get; set; }
-
-        // @property NSURLRequestCachePolicy cachePolicy;
-        //[Export("cachePolicy", ArgumentSemantic.Assign)]
-        //NSURLRequestCachePolicy CachePolicy { get; set; }
-
-        // @property NSTimeInterval timeoutInterval;
-        [Export("timeoutInterval")]
-        double TimeoutInterval { get; set; }
-
-        // @property (copy) NSURL * _Nullable mainDocumentURL;
-        [NullAllowed, Export("mainDocumentURL", ArgumentSemantic.Copy)]
-        NSUrl MainDocumentURL { get; set; }
-
-        // @property NSURLRequestNetworkServiceType networkServiceType __attribute__((availability(tvos, introduced=9.0))) __attribute__((availability(watchos, introduced=2.0))) __attribute__((availability(ios, introduced=4.0))) __attribute__((availability(macos, introduced=10.7)));
-        //[Watch(2, 0), TV(9, 0), Mac(10, 7), iOS(4, 0)]
-        //[Export("networkServiceType", ArgumentSemantic.Assign)]
-        //NSURLRequestNetworkServiceType NetworkServiceType { get; set; }
-
-        // @property BOOL allowsCellularAccess __attribute__((availability(tvos, introduced=9.0))) __attribute__((availability(watchos, introduced=2.0))) __attribute__((availability(ios, introduced=6.0))) __attribute__((availability(macos, introduced=10.8)));
-        [Watch(2, 0), TV(9, 0), Mac(10, 8), iOS(6, 0)]
-        [Export("allowsCellularAccess")]
-        bool AllowsCellularAccess { get; set; }
-    }
 
     // @interface CloudPushSDK : NSObject
     [BaseType(typeof(NSObject))]
